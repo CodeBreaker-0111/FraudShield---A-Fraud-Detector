@@ -1,0 +1,92 @@
+{
+  "roc_auc": 1.0,
+  "avg_precision": 0.9995,
+  "dataset": "synthetic",
+  "n_features": 14,
+  "n_train": 77600,
+  "n_test": 10000,
+  "confusion_matrix": [
+    [
+      9698,
+      2
+    ],
+    [
+      4,
+      296
+    ]
+  ],
+  "feature_names": [
+    "amount",
+    "hour",
+    "distance_from_home",
+    "txn_per_hour",
+    "avg_monthly_spend",
+    "new_device",
+    "merchant_risk",
+    "card_type",
+    "international",
+    "amount_ratio",
+    "is_night",
+    "high_velocity",
+    "far_from_home",
+    "risk_amount_combo"
+  ],
+  "feature_importance": [
+    {
+      "feature": "merchant_risk",
+      "importance": 0.2908
+    },
+    {
+      "feature": "distance_from_home",
+      "importance": 0.199
+    },
+    {
+      "feature": "risk_amount_combo",
+      "importance": 0.146
+    },
+    {
+      "feature": "txn_per_hour",
+      "importance": 0.1075
+    },
+    {
+      "feature": "high_velocity",
+      "importance": 0.0899
+    },
+    {
+      "feature": "far_from_home",
+      "importance": 0.05
+    },
+    {
+      "feature": "new_device",
+      "importance": 0.0342
+    },
+    {
+      "feature": "hour",
+      "importance": 0.0269
+    },
+    {
+      "feature": "is_night",
+      "importance": 0.0267
+    },
+    {
+      "feature": "amount",
+      "importance": 0.0157
+    },
+    {
+      "feature": "amount_ratio",
+      "importance": 0.0063
+    },
+    {
+      "feature": "international",
+      "importance": 0.0053
+    },
+    {
+      "feature": "avg_monthly_spend",
+      "importance": 0.0015
+    },
+    {
+      "feature": "card_type",
+      "importance": 0.0002
+    }
+  ]
+}

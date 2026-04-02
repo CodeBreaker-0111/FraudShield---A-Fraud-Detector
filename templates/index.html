@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FraudShield</title>
+  <link rel="stylesheet" href="/static/css/style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+</head>
+<body>
+<div class="app">
+
+  <header class="topbar">
+    <div class="topbar-left">
+      <div class="brand">FS</div>
+      <span class="brand-name">FraudShield</span>
+    </div>
+    <div class="topbar-right">
+      <div class="model-pill" id="modelPill">
+        <span class="pill-dot"></span>
+        <span id="pillText">checking model...</span>
+      </div>
+    </div>
+  </header>
+
+  <nav class="mainnav">
+    <button class="navbtn active" data-tab="analyze">Analyze</button>
+    <!-- <button class="navbtn" data-tab="dashboard">Dashboard</button>-->
+    <button class="navbtn" data-tab="model">Model</button>
+  </nav>
+
+  <!-- ANALYZE -->
+  <section class="page active" id="page-analyze">
+    <div class="split">
+      <div class="left-col">
+        <p class="section-label">Transaction Details</p>
+        <div class="field-group">
+          <div class="field">
+            <label>Card Type</label>
+            <select id="cardType">
+              <option value="credit">Credit Card</option>
+              <option value="debit">Debit Card</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Amount (₹)</label>
+            <input type="number" id="amount" value="4500" />
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label>Merchant Category</label>
+            <select id="merchantCat">
+              <option value="grocery">Grocery</option>
+              <option value="restaurant">Restaurant</option>
+              <option value="pharmacy">Pharmacy</option>
+              <option value="fuel">Fuel</option>
+              <option value="travel">Travel</option>
+              <option value="online">Online / E-commerce</option>
+              <option value="electronics">Electronics</option>
+              <option value="atm">ATM Withdrawal</option>
+              <option value="jewelry">Jewelry / Luxury</option>
+              <option value="gaming">Gaming / Crypto</option>
+            </select>
+          </div>
+          <div class="field">
+            <label>Hour of Day (0–23)</label>
+            <input type="number" id="hour" value="14" min="0" max="23" />
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label>Distance from Home (km)</label>
+            <input type="number" id="distance" value="5" />
+          </div>
+          <div class="field">
+            <label>Transactions This Hour</label>
+            <input type="number" id="txnPerHour" value="1" min="1" />
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label>Avg Monthly Spend (₹)</label>
+            <input type="number" id="avgSpend" value="15000" />
+          </div>
+          <div class="field">
+            <label>New Device / Location?</label>
+            <select id="newDevice">
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </div>
+        </div>
+        <div class="field-group">
+          <div class="field">
+            <label>International?</label>
+            <select id="international">
+              <option value="0">No</option>
+              <option value="1">Yes</option>
+            </select>
+          </div>
+        </div>
+        <button class="runbtn" id="runBtn" onclick="analyze()">
+          <span id="runBtnLabel">Run Analysis</span>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </button>
+      </div>
+
+      <div class="right-col">
+        <p class="section-label">Result</p>
+        <div class="result-empty" id="resultEmpty">
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5" opacity="0.25"/><path d="M16 10v6M16 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/></svg>
+          <p>Fill in the details and run analysis</p>
+        </div>
+        <div class="result-box hidden" id="resultBox">
+          <div class="result-top">
+            <div class="prob-display">
+              <span class="prob-number" id="probNumber">0</span>
+              <span class="prob-unit">% fraud probability</span>
+            </div>
+            <div class="risk-tag" id="riskTag">—</div>
+          </div>
+          <div class="prob-track"><div class="prob-fill" id="probFill"></div></div>
+          <p class="verdict" id="verdict"></p>
+          <div class="divider"></div>
+          <p class="section-label" style="margin-bottom:12px;">What triggered this</p>
+          <div class="triggers" id="triggers"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASHBOARD 
+  <section class="page" id="page-dashboard">
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">1,248</div><div class="stat-label">Analyzed</div></div>
+      <div class="stat-box"><div class="stat-num red">37</div><div class="stat-label">Frauds blocked</div></div>
+      <div class="stat-box"><div class="stat-num green">₹4.2L</div><div class="stat-label">Amount saved</div></div>
+      <div class="stat-box"><div class="stat-num" id="aucStat">—</div><div class="stat-label">ROC-AUC</div></div>
+    </div>
+    <div class="chart-row">
+      <div class="chart-box"><p class="section-label">Fraud by category</p><canvas id="catChart" height="200"></canvas></div>
+      <div class="chart-box"><p class="section-label">Fraud by hour</p><canvas id="hourChart" height="200"></canvas></div>
+    </div>
+    <div class="table-box">
+      <p class="section-label" style="margin-bottom:14px;">Recent flagged transactions</p>
+      <table class="txntable">
+        <thead><tr><th>ID</th><th>Card</th><th>Amount</th><th>Category</th><th>Hour</th><th>Score</th><th>Status</th></tr></thead>
+        <tbody id="txnBody"></tbody>
+      </table>
+    </div>
+  </section>-->
+
+  <!-- MODEL -->
+  <section class="page" id="page-model">
+    <div class="model-grid">
+      <div class="info-box">
+        <p class="section-label">Algorithm</p>
+        <p class="info-p">Random Forest — 100 decision trees vote on each transaction. Majority wins. Doesn't overfit like a single decision tree.</p>
+      </div>
+      <div class="info-box">
+        <p class="section-label">Class Imbalance</p>
+        <p class="info-p">Fraud is rare (~3%). SMOTE creates synthetic fraud samples during training so the model doesn't just say "always legit."</p>
+      </div>
+      <div class="info-box">
+        <p class="section-label">Feature Importance</p>
+        <div id="featList"><p class="info-p muted">Train the model first.</p></div>
+      </div>
+      <div class="info-box">
+        <p class="section-label">Metrics</p>
+        <div id="metricsList"><p class="info-p muted">Loading...</p></div>
+      </div>
+    </div>
+    <div class="pipeline-box">
+      <p class="section-label" style="margin-bottom:16px;">Pipeline</p>
+      <div class="pipeline">
+        <div class="pipe-step">Raw data</div><div class="pipe-arrow">→</div>
+        <div class="pipe-step">Feature engineering</div><div class="pipe-arrow">→</div>
+        <div class="pipe-step">Train/test split</div><div class="pipe-arrow">→</div>
+        <div class="pipe-step">StandardScaler</div><div class="pipe-arrow">→</div>
+        <div class="pipe-step">SMOTE</div><div class="pipe-arrow">→</div>
+        <div class="pipe-step">Random Forest</div><div class="pipe-arrow">→</div>
+        <div class="pipe-step">Probability score</div><div class="pipe-arrow">→</div>
+        <div class="pipe-step">Decision (≥0.5 = fraud)</div>
+      </div>
+    </div>
+  </section>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<script src="/static/js/main.js"></script>
+</body>
+</html>
