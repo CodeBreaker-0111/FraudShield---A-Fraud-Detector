@@ -27,6 +27,8 @@
     <button class="navbtn active" data-tab="analyze">Analyze</button>
     <button class="navbtn" data-tab="dashboard">Dashboard</button>
     <button class="navbtn" data-tab="model">Model</button>
+    <button class="navbtn" data-tab="train">Train on Dataset</button>
+    <button class="navbtn" data-tab="contributors">Contributors</button>
   </nav>
 
   <!-- ══ ANALYZE ══ -->
@@ -34,96 +36,50 @@
     <div class="split">
       <div class="left-col">
         <p class="section-label">Transaction Details</p>
-
         <div class="field-group">
-          <div class="field">
-            <label>Card Type</label>
-            <select id="cardType">
-              <option value="credit">Credit Card</option>
-              <option value="debit">Debit Card</option>
-            </select>
+          <div class="field"><label>Card Type</label>
+            <select id="cardType"><option value="credit">Credit Card</option><option value="debit">Debit Card</option></select>
           </div>
-          <div class="field">
-            <label>Amount (₹)</label>
-            <input type="number" id="amount" value="4500" />
-          </div>
+          <div class="field"><label>Amount (₹)</label><input type="number" id="amount" value="4500" /></div>
         </div>
-
         <div class="field-group">
-          <div class="field">
-            <label>Merchant Category</label>
+          <div class="field"><label>Merchant Category</label>
             <select id="merchantCat">
-              <option value="grocery">Grocery</option>
-              <option value="restaurant">Restaurant</option>
-              <option value="pharmacy">Pharmacy</option>
-              <option value="fuel">Fuel</option>
-              <option value="travel">Travel</option>
-              <option value="online">Online / E-commerce</option>
-              <option value="electronics">Electronics</option>
-              <option value="atm">ATM Withdrawal</option>
-              <option value="jewelry">Jewelry / Luxury</option>
-              <option value="gaming">Gaming / Crypto</option>
+              <option value="grocery">Grocery</option><option value="restaurant">Restaurant</option>
+              <option value="pharmacy">Pharmacy</option><option value="fuel">Fuel</option>
+              <option value="travel">Travel</option><option value="online">Online / E-commerce</option>
+              <option value="electronics">Electronics</option><option value="atm">ATM Withdrawal</option>
+              <option value="jewelry">Jewelry / Luxury</option><option value="gaming">Gaming / Crypto</option>
             </select>
           </div>
-          <div class="field">
-            <label>Hour of Day (0–23)</label>
-            <input type="number" id="hour" value="14" min="0" max="23" />
-          </div>
+          <div class="field"><label>Hour of Day (0–23)</label><input type="number" id="hour" value="14" min="0" max="23" /></div>
         </div>
-
         <div class="field-group">
-          <div class="field">
-            <label>Distance from Home (km)</label>
-            <input type="number" id="distance" value="5" />
-          </div>
-          <div class="field">
-            <label>Transactions This Hour</label>
-            <input type="number" id="txnPerHour" value="1" min="1" />
-          </div>
+          <div class="field"><label>Distance from Home (km)</label><input type="number" id="distance" value="5" /></div>
+          <div class="field"><label>Transactions This Hour</label><input type="number" id="txnPerHour" value="1" min="1" /></div>
         </div>
-
         <div class="field-group">
-          <div class="field">
-            <label>Avg Monthly Spend (₹)</label>
-            <input type="number" id="avgSpend" value="15000" />
-          </div>
-          <div class="field">
-            <label>New Device / Location?</label>
-            <select id="newDevice">
-              <option value="0">No</option>
-              <option value="1">Yes</option>
-            </select>
+          <div class="field"><label>Avg Monthly Spend (₹)</label><input type="number" id="avgSpend" value="15000" /></div>
+          <div class="field"><label>New Device / Location?</label>
+            <select id="newDevice"><option value="0">No</option><option value="1">Yes</option></select>
           </div>
         </div>
-
         <div class="field-group">
-          <div class="field">
-            <label>International?</label>
-            <select id="international">
-              <option value="0">No</option>
-              <option value="1">Yes</option>
-            </select>
+          <div class="field"><label>International?</label>
+            <select id="international"><option value="0">No</option><option value="1">Yes</option></select>
           </div>
         </div>
-
         <button class="runbtn" id="runBtn" onclick="analyze()">
           <span id="runBtnLabel">Run Analysis</span>
-          <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-            <path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </button>
       </div>
-
       <div class="right-col">
         <p class="section-label">Result</p>
         <div class="result-empty" id="resultEmpty">
-          <svg width="28" height="28" viewBox="0 0 32 32" fill="none">
-            <circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5" opacity="0.25"/>
-            <path d="M16 10v6M16 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/>
-          </svg>
+          <svg width="28" height="28" viewBox="0 0 32 32" fill="none"><circle cx="16" cy="16" r="14" stroke="currentColor" stroke-width="1.5" opacity="0.25"/><path d="M16 10v6M16 20v2" stroke="currentColor" stroke-width="2" stroke-linecap="round" opacity="0.4"/></svg>
           <p>Fill in the details and run analysis</p>
         </div>
-
         <div class="result-box hidden" id="resultBox">
           <div class="result-top">
             <div class="prob-display">
@@ -150,24 +106,36 @@
       <div class="stat-box"><div class="stat-num green">₹4.2L</div><div class="stat-label">Amount saved</div></div>
       <div class="stat-box"><div class="stat-num">0.974</div><div class="stat-label">ROC-AUC</div></div>
     </div>
-
     <div class="chart-row">
       <div class="chart-box">
         <p class="section-label">Fraud by category</p>
-        <canvas id="catChart" height="200"></canvas>
+        <div style="position:relative;height:200px;width:100%;"><canvas id="catChart"></canvas></div>
+        <p class="chart-insight" id="catInsight"></p>
       </div>
       <div class="chart-box">
-        <p class="section-label">Fraud by hour</p>
-        <canvas id="hourChart" height="200"></canvas>
+        <p class="section-label">Fraud by hour of day</p>
+        <div style="position:relative;height:200px;width:100%;"><canvas id="hourChart"></canvas></div>
+        <p class="chart-insight" id="hourInsight"></p>
       </div>
     </div>
-
+    <div class="chart-row" style="margin-top:0;">
+      <div class="chart-box">
+        <p class="section-label">Transaction distribution</p>
+        <div style="display:flex;align-items:center;gap:24px;">
+          <canvas id="pieChart" width="180" height="180" style="max-width:180px;"></canvas>
+          <div id="pieInsight" style="flex:1;"></div>
+        </div>
+      </div>
+      <div class="chart-box">
+        <p class="section-label">Algorithm comparison (ROC-AUC)</p>
+        <div style="position:relative;height:200px;width:100%;"><canvas id="algoChart"></canvas></div>
+        <p class="chart-insight" id="algoInsight"></p>
+      </div>
+    </div>
     <div class="table-box">
       <p class="section-label" style="margin-bottom:14px;">Recent flagged transactions</p>
       <table class="txntable">
-        <thead>
-          <tr><th>ID</th><th>Card</th><th>Amount</th><th>Category</th><th>Hour</th><th>Score</th><th>Status</th></tr>
-        </thead>
+        <thead><tr><th>ID</th><th>Card</th><th>Amount</th><th>Category</th><th>Hour</th><th>Score</th><th>Status</th></tr></thead>
         <tbody id="txnBody"></tbody>
       </table>
     </div>
@@ -176,24 +144,11 @@
   <!-- ══ MODEL ══ -->
   <section class="page" id="page-model">
     <div class="model-grid">
-      <div class="info-box">
-        <p class="section-label">Algorithm</p>
-        <p class="info-p">Random Forest — 100 decision trees vote on each transaction. Majority wins. Doesn't overfit like a single decision tree would.</p>
-      </div>
-      <div class="info-box">
-        <p class="section-label">Class Imbalance</p>
-        <p class="info-p">Fraud is rare (~3%). SMOTE creates synthetic fraud samples during training so the model doesn't just learn to say "always legit."</p>
-      </div>
-      <div class="info-box">
-        <p class="section-label">Feature Importance</p>
-        <div id="featList"></div>
-      </div>
-      <div class="info-box">
-        <p class="section-label">Metrics</p>
-        <div id="metricsList"></div>
-      </div>
+      <div class="info-box"><p class="section-label">Algorithm</p><p class="info-p">Random Forest — 100 decision trees vote on each transaction. Majority wins. Doesn't overfit like a single decision tree would.</p></div>
+      <div class="info-box"><p class="section-label">Class Imbalance</p><p class="info-p">Fraud is rare (~3%). SMOTE creates synthetic fraud samples during training so the model doesn't just say "always legit."</p></div>
+      <div class="info-box"><p class="section-label">Feature Importance</p><div id="featList"></div></div>
+      <div class="info-box"><p class="section-label">Metrics</p><div id="metricsList"></div></div>
     </div>
-
     <div class="pipeline-box">
       <p class="section-label" style="margin-bottom:16px;">Pipeline</p>
       <div class="pipeline">
@@ -209,8 +164,115 @@
     </div>
   </section>
 
-</div>
 
+  <!-- ══ TRAIN ON DATASET ══ -->
+  <section class="page" id="page-train">
+
+    <div class="train-hero">
+      <h2 class="train-title">Train on Your Dataset</h2>
+      <p class="train-sub">Upload a CSV file — the model will train on your data and start predicting from it instantly. No server needed, everything runs in your browser.</p>
+    </div>
+
+    <div class="train-layout">
+
+      <!-- Upload box -->
+      <div class="upload-card" id="uploadCard">
+        <div class="upload-zone" id="uploadZone">
+          <div class="upload-icon">
+            <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+          </div>
+          <p class="upload-label">Drop your CSV file here</p>
+          <p class="upload-hint">or</p>
+          <label class="upload-btn" for="csvInput">Browse file</label>
+          <input type="file" id="csvInput" accept=".csv" style="display:none;" onchange="handleFile(this.files[0])" />
+          <p class="upload-hint" style="margin-top:12px;">Required columns: <code>amount</code>, <code>is_fraud</code> — others optional</p>
+        </div>
+      </div>
+
+      <!-- Format guide -->
+      <div class="format-card">
+        <p class="section-label">Expected CSV Format</p>
+        <div class="format-table-wrap">
+          <table class="format-table">
+            <thead><tr><th>Column</th><th>Type</th><th>Required</th><th>Example</th></tr></thead>
+            <tbody>
+              <tr><td><code>amount</code></td><td>Number</td><td><span class="req yes">Yes</span></td><td>4500</td></tr>
+              <tr><td><code>is_fraud</code></td><td>0 or 1</td><td><span class="req yes">Yes</span></td><td>0</td></tr>
+              <tr><td><code>hour</code></td><td>0–23</td><td><span class="req no">Optional</span></td><td>14</td></tr>
+              <tr><td><code>distance_from_home</code></td><td>Number</td><td><span class="req no">Optional</span></td><td>12</td></tr>
+              <tr><td><code>txn_per_hour</code></td><td>Number</td><td><span class="req no">Optional</span></td><td>2</td></tr>
+              <tr><td><code>avg_monthly_spend</code></td><td>Number</td><td><span class="req no">Optional</span></td><td>15000</td></tr>
+              <tr><td><code>new_device</code></td><td>0 or 1</td><td><span class="req no">Optional</span></td><td>0</td></tr>
+              <tr><td><code>merchant_risk</code></td><td>0.0–1.0</td><td><span class="req no">Optional</span></td><td>0.25</td></tr>
+              <tr><td><code>card_type</code></td><td>0 or 1</td><td><span class="req no">Optional</span></td><td>0</td></tr>
+              <tr><td><code>international</code></td><td>0 or 1</td><td><span class="req no">Optional</span></td><td>0</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <a class="sample-link" id="downloadSample" href="#" onclick="downloadSampleCSV(); return false;">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+          Download sample CSV
+        </a>
+      </div>
+    </div>
+
+    <!-- Training progress -->
+    <div class="train-progress hidden" id="trainProgress">
+      <div class="progress-header">
+        <span class="progress-title" id="progressTitle">Reading file...</span>
+        <span class="progress-pct" id="progressPct">0%</span>
+      </div>
+      <div class="progress-bar-bg"><div class="progress-bar-fill" id="progressFill"></div></div>
+      <p class="progress-sub" id="progressSub"></p>
+    </div>
+
+    <!-- Training result -->
+    <div class="train-result hidden" id="trainResult">
+      <div class="train-stats" id="trainStats"></div>
+      <div class="train-success">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14M22 4L12 14.01l-3-3"/></svg>
+        Model trained successfully! Go to <strong>Analyze</strong> tab to test predictions.
+      </div>
+      <div class="dataset-charts">
+        <div class="chart-box">
+          <p class="section-label">Your dataset — fraud distribution</p>
+          <div style="position:relative;height:200px;width:100%;"><canvas id="trainPieChart"></canvas></div>
+        </div>
+        <div class="chart-box">
+          <p class="section-label">Amount distribution (fraud vs legit)</p>
+          <div style="position:relative;height:200px;width:100%;"><canvas id="trainAmtChart"></canvas></div>
+        </div>
+      </div>
+    </div>
+
+  </section>
+
+  <!-- ══ CONTRIBUTORS ══ -->
+  <section class="page" id="page-contributors">
+    <div class="contrib-header">
+      <h2 class="contrib-title">Built by</h2>
+      <p class="contrib-sub">The team behind FraudShield — SKIT Jaipur, CSE Batch 2023</p>
+    </div>
+    <div class="contrib-grid" id="contribGrid"></div>
+    <div class="contrib-footer">
+      <p>Made with ❤️ at <strong>Swami Keshvanand Institute of Technology, Jaipur</strong></p>
+      <p style="margin-top:6px;font-size:12px;">Under the guidance of <strong>Dr. Karuna Sharma</strong> · Department of Computer Science & Engineering</p>
+      <a href="https://github.com/CodeBreaker-0111/FraudShield---A-Fraud-Detector" target="_blank" class="repo-link">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+        View on GitHub
+      </a>
+    </div>
+  </section>
+
+
+  <footer class="site-footer">
+    Designed & Managed by
+    <a href="https://github.com/CodeBreaker-0111" target="_blank" rel="noopener">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+      @CodeBreaker-0111
+    </a>
+  </footer>
+</div>
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <script src="app.js"></script>
 </body>
